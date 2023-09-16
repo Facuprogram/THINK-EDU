@@ -1,26 +1,14 @@
-function createAccesToken(payload) { 
-    Jwt.sign(
-         payload,
-         "secret123",
-        {
-          expiresIn: "2h",
-        },
-        (err, token) => {
-           if (err) console.log(err);
-          
-        }
-      );  
-}
-Jwt.sign(
-    {
-      id: userSaved._id,
-    },
-     "secret123",
-    {
-      expiresIn: "1d",
-    },
-    (err, token) => {
-       if (err) console.log(err);
+import { TOKEN_SECRET } from "../config.js";
+import jwt from "jsonwebtoken";
+
+export async function createAccesToken(payload) {
+  return new Promise((resolve, reject) => {
+    jwt.sign(payload, TOKEN_SECRET,{ expiresIn: "1d" },(err, token) => {
+        if (err) reject(err);
+        resolve(token);
       
-    }
-  );
+    }); 
+  });
+}
+ 
+
