@@ -1,22 +1,81 @@
-import User from '../models/login.js'
+import User from "../models/user.js";
+import bcrypt from "bcryptjs";
+import { createAccesToken } from "../libs/jwt.js";
 
-export const register = async (req, res) => {
-    console.log(req.body);
-    const {email, password, username} = req.body
+    export const register = async (req, res) => {
+    const {email, password, username} = req.body;
+
     try {
+      const passwordHash = await bcrypt.hash(
+      password, 10,
+      );
+
       const newUser = new User ({
             username,
             email,
-            password,
+            password: passwordHash,
         });
+
+      const userSaved = await newUser.save();
+      const token = await createAccesToken({id: userSaved._id});
+        res.cookie('token', token)
+        res.json({
+        id: userSaved._id,
+        username: userSaved.username,
+        email: userSaved.email,
+        createdAt: userSaved.createdAt,      
+        updatedAt: userSaved.updatedAt,
+      });
+      
+     } catch (error) {
+       res.status(500).json({ message: error }) 
+     }
+   };
+
+   export const login = async (req, res) => {
+    const { email, password, } = req.body;
     
-      const userSaved = await newUser.save(); 
-      res.json("userSaved")
+    
+    try {
+      const userFound = await User.findOne({email})
+      if (!userFound) return res.status(400).json({message: "User not found"});
+      
+      const isMatch = await bcrypt.compare(password, userFound.password);
+      if (!isMatch) return res.status(400).json({message: "incorrect password"});
+      
+      const token = await createAccesToken({id: userFound._id });
+      res.cookie('token', token)
+      res.json({
+        id: userSaved._id,
+        username: userSaved.username,
+        email: userSaved.email,
+        createdAt: userSaved.createdAt,      
+        updatedAt: userSaved.updatedAt,
+      });
+      
     } catch (error) {
-      console.log(error);  
+       res.status(500).json({ message: error })
+      }
     }
-   
-}
-
-export const login = (req, res) => res.send("login");
-
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
