@@ -1,4 +1,6 @@
-const Student = require('../models/student');
+import Student from "../models/student";
+//import bcrypt from "bcryptjs";
+//import { createAccesToken } from "../libs/jwt";
 
 // Controlador para crear un nuevo alumno
 // async function createStudent(req, res) {
