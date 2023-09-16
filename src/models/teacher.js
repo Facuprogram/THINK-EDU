@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 const { Schema, model } = mongoose;
 
-const administrativeSchema = new Schema({
+const teacherSchema = new Schema({
     name: {
         type: String,
         required: true
@@ -30,6 +30,6 @@ const administrativeSchema = new Schema({
     address: String
 });
 
-const Administrative = model('Administrative', administrativeSchema);
+const Teacher = model('Teacher', teacherSchema);
 
-export default Administrative;
+export default Teacher;
