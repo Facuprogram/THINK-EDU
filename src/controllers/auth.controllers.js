@@ -32,20 +32,23 @@ import { createAccesToken } from "../libs/jwt.js";
      }
    };
 
+
+
    export const login = async (req, res) => {
-    const { email, password, } = req.body;
-    
-    
-    try {
-      const userFound = await User.findOne({email})
-      if (!userFound) return res.status(400).json({message: "User not found"});
-      
+    const { email, password } = req.body;
+
+    try { 
+      const userFound = await User.findOne({ email });
+      if (!userFound) return res.status(400).json({ message: "User not found" });
+
       const isMatch = await bcrypt.compare(password, userFound.password);
-      if (!isMatch) return res.status(400).json({message: "incorrect password"});
       
-      const token = await createAccesToken({id: userFound._id });
-      res.cookie('token', token)
-      res.json({
+      if (!isMatch) return res.status(400).json({ message: "Incorrect password"});
+      
+
+      const token = await createAccesToken({id: userFound._id});
+        res.cookie('token', token)
+        res.json({
         id: userSaved._id,
         username: userSaved.username,
         email: userSaved.email,
@@ -53,10 +56,15 @@ import { createAccesToken } from "../libs/jwt.js";
         updatedAt: userSaved.updatedAt,
       });
       
-    } catch (error) {
-       res.status(500).json({ message: error })
-      }
-    }
+     } catch (error) {
+       res.status(500).json({ message: error }) 
+     }
+   };
+
+
+   
+
+ 
     
     
     
