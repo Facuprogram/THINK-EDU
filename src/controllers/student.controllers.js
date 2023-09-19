@@ -1,9 +1,9 @@
-import student from "../models/student.js";
+ import Student from "../models/student.js";
 
 
-export const createStudent = (req, res) => {
+ export const createStudent = async (req, res) => {
   const {nameComplete, degree, numberId, quotaDay, active, telephone, address, age} = req.body;
-  const newStudent = new studentModels ({
+  const newStudent = new Student ({
     nameComplete,
     degree,
     numberId,
@@ -11,12 +11,12 @@ export const createStudent = (req, res) => {
     active,
     telephone,
     address,
-    age
-  })
-}
+    age,
+  });
+};
 
 // Controlador para obtener todos los alumnos
-async function getStudents(req, res) {
+ export const  getStudent = async (req, res) => {
   try {
     const student = await student.find(); // Obtiene todos los alumnos desde la base de datos
     res.json(student); // Responde con la lista de alumnos
@@ -26,46 +26,29 @@ async function getStudents(req, res) {
 }
 
 // Controlador para obtener un alumno por su ID
-async function getStudentById(req, res) {
+ export const getStudentById = (req, res) => {
   try {
-    const student = await student.findById(req.params.id); // Busca un alumno por su ID
-    if (!student) {
-      return res.status(404).json({ message: 'Alumno no encontrado' });
-    }
+    const student =  student.findById(req.params.id); // Busca un alumno por su ID
+    if (!student) return res.status(400).json({ message: "Student not found" });
+
     res.json(student); // Responde con los detalles del alumno encontrado
   } catch (error) {
     res.status(500).json({ error: error.message }); // Manejo de errores
   }
 }
 
+  export const deleteStudent = (req, res) => {
+  } 
+     try {
+     const studentDel = await Student.findByIdAndRemove(req.params.id);
+      
+     if (!studentDel) return res.status(400).json({ message: "Student not found" });
 
-// Controlador para actualizar un alumno por su ID
-// async function actualizarAlumno(req, res) {
-//   try {
-//     const alumnoActualizado = await Alumno.findByIdAndUpdate(req.params.id, req.body, { new: true });
-//     if (!alumnoActualizado) {
-//       return res.status(404).json({ message: 'Alumno no encontrado' });
-//     }
-//     res.json(alumnoActualizado);
-//   } catch (error) {
-//     res.status(500).json({ error: error.message });
-//   }
-// }
-
-
-// Controlador para eliminar un alumno por su ID
- async function deleteStudent(req, res) {
-   try {
-     const studentDel = await student.findByIdAndRemove(req.params.id);
-     if (!studentDel) {
-       return res.status(404).json({ message: 'Alumno no encontrado' });
-     } 
-     res.json({ message: 'Alumno eliminado correctamente' });
+     res.json({ message: "Alumno eliminado correctamente" });
    } catch (error) {
      res.status(500).json({ error: error.message });
    }
-  }
-
+   
  {
 
 };

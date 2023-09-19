@@ -1,4 +1,4 @@
-import Teacher from "../models/teacher";
+import Teacher from "../models/teacher.js";
 
 export const createTeacher = (req, res) => {
   const { name, lastName, currentDay, contact, id, nameInstitution, address } = req.body;
@@ -15,15 +15,13 @@ export const createTeacher = (req, res) => {
 }
 
 
-
-async function getTeacherData(req, res) {
+export const getTeacherData = (req, res) => {
+} 
   try {
     // You can search for the teacher using some criteria, such as name or ID
-    const teacher = await Teacher.findOne({ name: 'Facundo' });
+    const teacher = await Teacher.findOne({ name: "facundo" });
 
-    if (!teacher) {
-      return res.status(404).json({ message: 'Teacher not found' });
-    }
+    if (!teacher) return res.status(400).json({ message: "User not found" });
 
     // Devuelve los datos en formato JSON
     res.json({
@@ -40,7 +38,7 @@ async function getTeacherData(req, res) {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
- }
+
 
  {
   

@@ -4,11 +4,14 @@ import {
     register, 
     logout, 
     profile,
-    students,
-    teacher,
+
 
  } from "../controllers/auth.controllers.js";
- import { authRequired } from "../middlewares/validateToken.js";
+    
+  import { authRequired } from "../middlewares/validateToken.js";
+
+
+   
 
 const router = Router();
 
@@ -21,8 +24,5 @@ router.post("/logout", logout);
 
 router.post("/profile", authRequired, profile);
 
-router.post("/students", students);
-
-router.post("/teacher", teacher);
 
 export default router; 

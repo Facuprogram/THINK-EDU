@@ -5,7 +5,7 @@ const router = Router();
 
 router.post,("/student", createStudent);
 
-router.get,("/student", getStudents);
+router.get,("/student", getStudent);
 
 router.get("/student", getStudentById);
 
