@@ -15,25 +15,24 @@
   });
 };
 
-// Controlador para obtener todos los alumnos
+
  export const  getStudent = async (req, res) => {
   try {
-    const student = await student.find(); // Obtiene todos los alumnos desde la base de datos
-    res.json(student); // Responde con la lista de alumnos
+    const student = await student.find(); 
+    res.json(student);
   } catch (error) {
-    res.status(500).json({ error: error.message }); // Manejo de errores
+    res.status(500).json({ error: error.message }); 
   }
 }
 
-// Controlador para obtener un alumno por su ID
  export const getStudentById = (req, res) => {
   try {
-    const student =  student.findById(req.params.id); // Busca un alumno por su ID
+    const student =  student.findById(req.params.id); 
     if (!student) return res.status(400).json({ message: "Student not found" });
 
-    res.json(student); // Responde con los detalles del alumno encontrado
+    res.json(student); 
   } catch (error) {
-    res.status(500).json({ error: error.message }); // Manejo de errores
+    res.status(500).json({ error: error.message }); 
   }
 }
 

@@ -18,12 +18,10 @@ export const createTeacher = (req, res) => {
 export const getTeacherData = (req, res) => {
 } 
   try {
-    // You can search for the teacher using some criteria, such as name or ID
     const teacher = await Teacher.findOne({ name: "facundo" });
 
     if (!teacher) return res.status(400).json({ message: "User not found" });
 
-    // Devuelve los datos en formato JSON
     res.json({
       name: teacher.name,
       lastName: teacher.lastName,

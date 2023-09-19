@@ -30,6 +30,5 @@ const teacherSchema = new mongoose.Schema({
     address: String
 });
 
-//const Teacher = model('Teacher', teacherSchema);
 
 export default mongoose.model('Teacher', teacherSchema)
