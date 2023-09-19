@@ -2,7 +2,7 @@
   "name": "thinkedu-back",
   "version": "1.0.0",
   "description": "Este sera el repositorio backend  del registro de la pagina",
-  "main": "app.js",
+  "main": "index.js",
   "type": "module",
   "scripts": {
     "dev": "nodemon src/index.js"
