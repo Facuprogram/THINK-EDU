@@ -32,6 +32,5 @@ const studentSchema = new mongoose.Schema({
     age: Number
 });
 
-//const Student = model('Student', studentSchema);
 
 export default mongoose.model('Student', studentSchema)

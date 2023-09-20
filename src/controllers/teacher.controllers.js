@@ -18,7 +18,7 @@ export const createTeacher = (req, res) => {
 export const getTeacherData = (req, res) => {
 } 
   try {
-    const teacher = await Teacher.findOne({ name: "facundo" });
+    const teacher = await Teacher.findOne({ name: "Facundo" });
 
     if (!teacher) return res.status(400).json({ message: "User not found" });
 
