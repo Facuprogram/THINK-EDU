@@ -1,2 +1,2 @@
-# THINK-EDU
-Back-End project final
+# thinkedu-back
+Este sera el repositorio backend  del registro de la pagina 
