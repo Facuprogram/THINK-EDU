@@ -1,9 +1,28 @@
 import { Router } from "express";
-import { login, register } from "../controllers/auth.controllers.js";
+import { 
+    login, 
+    register, 
+    logout, 
+    profile,
 
-const router = Router()
+
+ } from "../controllers/auth.controllers.js";
+    
+  import { authRequired } from "../middlewares/validateToken.js";
+
+
+   
+
+const router = Router();
 
 router.post("/register", register);
+
 router.post("/login", login);
 
-export default router
+router.post("/logout", logout);
+
+
+router.post("/profile", authRequired, profile);
+
+
+export default router; 
