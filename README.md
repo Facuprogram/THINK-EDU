@@ -1,5 +1,5 @@
 # Proyecto de Administración Escolar [Backend]
-![Logo](../THINK-EDU/src/img/BannerThinkEdu.png)
+![Logo](../THINK-EDU/BannerThinkEdu.png)
 
 > El código está disponible en la rama [THINK-EDU - main](https://github.com/Facuprogram/THINK-EDU/tree/main)
 
