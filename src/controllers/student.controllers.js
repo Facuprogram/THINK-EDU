@@ -1,7 +1,7 @@
- import Student from "../models/student.js";
+import Student from "../models/student.js";
 
 
- export const createStudent = async (req, res) => {
+export const createStudent = async (req, res) => {
   const {nameComplete, degree, numberId, quotaDay, active, telephone, address, age} = req.body;
   const newStudent = new Student ({
     nameComplete,
@@ -13,9 +13,11 @@
     address,
     age,
   });
-
+  
   try {
     const savedStudent = await newStudent.save();
+    const token = await createAccesToken({id: studentSaved._id});
+    res.cookie('token', token)
     res.json(savedStudent);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -25,7 +27,7 @@
 
 
 
- export const  getStudent = async (req, res) => {
+ export const getStudent = async (req, res) => {
   try {
     const student = await Student.find({}); 
     res.json(student);

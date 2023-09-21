@@ -1,12 +1,10 @@
 import Teacher from "../models/teacher.js";
 
 export const createTeacher = (req, res) => {
-  const { name, lastName, currentDay, contact, id, nameInstitution, address } = req.body;
+  const { name, lastName, id, nameInstitution, address } = req.body;
   const newTeacher = new Teacher({
     name,
     lastName,
-    currentDay,
-    contact,
     id,
     nameInstitution,
     address,
@@ -14,7 +12,10 @@ export const createTeacher = (req, res) => {
 
   try {
     const savedTeacher =  newTeacher.save();
+    const token = createAccesToken({id: teacherSaved._id});
+    res.cookie('token', token)
     res.json(savedTeacher);
+  
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -27,17 +28,13 @@ export const createTeacher = (req, res) => {
 export const getTeacherData = async (req, res) => {
  
   try {
-    const teacher = await Teacher.findOne({ name: "Facundo" });
+    const teacher = await Teacher.findOne({ name: "/" });
 
     if (!teacher) return res.status(400).json({ message: "User not found" });
 
     res.json({
       name: teacher.name,
       lastName: teacher.lastName,
-      contact: {
-        telephone: teacher.contact.telephone,
-        mail: teacher.contact.mail,
-      },
       id: teacher.id,
       nameInstitution: teacher.nameInstitution,
       address: teacher.address,
