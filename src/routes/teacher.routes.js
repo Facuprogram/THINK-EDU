@@ -2,6 +2,6 @@ import { Router } from "express";
 
 const router = Router();
 
-router.post,("/teacher", getTeacher);
+router.post("/teacher", getTeacher);
 
 export default router;
