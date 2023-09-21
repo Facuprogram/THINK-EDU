@@ -2,7 +2,7 @@ import Teacher from "../models/teacher.js";
 
 export const createTeacher = (req, res) => {
   const { name, lastName, currentDay, contact, id, nameInstitution, address } = req.body;
-  const newTeacher = new teacherModels ({
+  const newTeacher = new Teacher({
     name,
     lastName,
     currentDay,
@@ -12,11 +12,20 @@ export const createTeacher = (req, res) => {
     address,
   })
 
-}
+  try {
+    const savedTeacher =  newTeacher.save();
+    res.json(savedTeacher);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+
+};
 
 
-export const getTeacherData = (req, res) => {
-} 
+
+
+export const getTeacherData = async (req, res) => {
+ 
   try {
     const teacher = await Teacher.findOne({ name: "Facundo" });
 
@@ -36,8 +45,5 @@ export const getTeacherData = (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
-
-
- {
   
 };
