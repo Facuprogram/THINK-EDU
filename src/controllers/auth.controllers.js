@@ -54,6 +54,7 @@ import { createAccesToken } from "../libs/jwt.js";
         email: userFound.email,
         createdAt: userFound.createdAt,      
         updatedAt: userFound.updatedAt,
+        token
       });
       
      } catch (error) {
