@@ -1,15 +1,18 @@
 import { Router } from "express";
-
+import { getAllStudents, getStudentById, createStudent, editStudent, desactiveStudent } from "../controllers/student.controllers.js";
 
 const router = Router();
 
-router.post,("/student", createStudent);
+router.post("/student", createStudent);
 
-router.get,("/student", getStudent);
+router.get("/student", getAllStudents);
 
-router.get("/student", getStudentById);
+router.get("/student/:id", getStudentById);
 
-router.delete("/student", deleteStudent);
+router.put("/student/:id", editStudent);
+
+router.patch("/students/:id/deactivate", desactiveStudent);
+
 
 
 

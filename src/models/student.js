@@ -1,36 +1,45 @@
-import mongoose from "mongoose"
+import mongoose from "mongoose";
+
 const studentSchema = new mongoose.Schema({
-    
-    nameComplete: {
+    name: {
         type: String,
         required: true
     },
-    
-    degree: {
-        type: Number,
+    lastName: {
+        type: String,
         required: true
     },
-    
-    numberId: {
-        type: Number,
-        required: true,
-        unique: true
+    degree: {
+        type: Number, // Current academic year
+        required: true
     },
-    
-    quotaDay: {
+    paymentState: {
         type: Boolean,
         default: false
     },
-    
     active: {
         type: Boolean,
         default: true
     },
-    
-    telephone: Number,
-    address: String,
-    age: Number
+    telephone: {
+        type: Number,
+        required: false
+    },
+    address: {
+        type: String,
+        required: true
+    },
+    age: {
+        type: Number,
+        required: false
+    },
+    assignments: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Assignment",
+            unique: true // Prevents duplicate assignments for the same student-degree
+        }
+    ]
 });
 
-
-export default mongoose.model('Student', studentSchema)
+export default mongoose.model("Student", studentSchema);
