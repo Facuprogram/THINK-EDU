@@ -34,7 +34,7 @@ export const createStudent = async (req, res) => {
 };
 
 export const editStudent = async (req, res) => {
-    const { name, lastName, degree, paymentState, telephone, address, age } = req.body;
+    const { name, lastName, degree, paymentState, telephone, address, age, assignments } = req.body;
 
     try {
         const student = await Student.findById(req.params.id);
@@ -53,6 +53,7 @@ export const editStudent = async (req, res) => {
         student.telephone = telephone || student.telephone;
         student.address = address || student.address;
         student.age = age || student.age;
+        student.assignments = assignments || []
 
         await student.save();
 
