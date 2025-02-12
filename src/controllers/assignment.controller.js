@@ -6,7 +6,8 @@ export const createAssignments = async (req, res) => {
     const assignmentsData = req.body; 
 
     try {
-      
+        const newAssignments = [];
+        
         for (const assignment of assignmentsData) {
             const student = await Student.findById(assignment.student);
             if (!student) {
@@ -14,10 +15,15 @@ export const createAssignments = async (req, res) => {
                     message: `Student with ID ${assignment.student} not found`
                 });
             }
-        }
 
-       
-        const newAssignments = await Assignment.insertMany(assignmentsData);
+            const newAssignment = new Assignment(assignment);
+            await newAssignment.save();
+
+            student.assignments.push(newAssignment._id);
+            await student.save();  
+
+            newAssignments.push(newAssignment);
+        }
 
         res.status(201).json({
             message: 'Assignments created successfully',
@@ -33,16 +39,16 @@ export const createAssignments = async (req, res) => {
 };
 
 
+
 export const editAssignments = async (req, res) => {
     const assignmentsData = req.body; 
 
     try {
-        
         const updatedAssignments = [];
+
         for (const assignment of assignmentsData) {
             const { id, student, degree, subjects } = assignment;
-            
-        
+
             const existingAssignment = await Assignment.findById(id);
             if (!existingAssignment) {
                 return res.status(404).json({
@@ -50,7 +56,6 @@ export const editAssignments = async (req, res) => {
                 });
             }
 
-           
             const studentExists = await Student.findById(student);
             if (!studentExists) {
                 return res.status(400).json({
@@ -58,14 +63,18 @@ export const editAssignments = async (req, res) => {
                 });
             }
 
-            
+
             existingAssignment.student = student || existingAssignment.student;
             existingAssignment.degree = degree || existingAssignment.degree;
             existingAssignment.subjects = subjects || existingAssignment.subjects;
 
-            
             const updatedAssignment = await existingAssignment.save();
             updatedAssignments.push(updatedAssignment);
+
+            if (!studentExists.assignments.includes(updatedAssignment._id)) {
+                studentExists.assignments.push(updatedAssignment._id);
+                await studentExists.save(); 
+            }
         }
 
         res.status(200).json({
@@ -80,3 +89,4 @@ export const editAssignments = async (req, res) => {
         });
     }
 };
+

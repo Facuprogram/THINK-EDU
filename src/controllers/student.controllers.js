@@ -49,7 +49,6 @@ export const editStudent = async (req, res) => {
         student.name = name || student.name;
         student.lastName = lastName || student.lastName;
         student.degree = degree || student.degree;
-        student.numberId = numberId || student.numberId;
         student.paymentState = paymentState || student.paymentState;
         student.telephone = telephone || student.telephone;
         student.address = address || student.address;
@@ -113,9 +112,7 @@ export const getStudentById = async (req, res) => {
             });
         }
 
-        res.status(200).json({
-            student
-        });
+        res.status(200).json(student);
     } catch (error) {
         console.error(error);
         res.status(500).json({
@@ -127,11 +124,12 @@ export const getStudentById = async (req, res) => {
 
 export const getAllStudents = async (req, res) => {
     try {
-        const students = await Student.find().populate('assignments');
+        const students = await Student.find()
+            .populate({
+                path: 'assignments',
+            });
 
-        res.status(200).json({
-            students
-        });
+        res.status(200).json(students);
     } catch (error) {
         console.error(error);
         res.status(500).json({
@@ -140,5 +138,6 @@ export const getAllStudents = async (req, res) => {
         });
     }
 };
+
 
 export default router;
