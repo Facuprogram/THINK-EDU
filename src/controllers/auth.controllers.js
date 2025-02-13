@@ -55,12 +55,11 @@ import { createAccesToken } from "../libs/jwt.js";
             address
         });
   
-        // Step 3: Update User with Teacher ID
         user.teacherId = teacher._id;
         await user.save();
         const token = await createAccesToken({id: user._id});
         res.cookie('token', token)
-        res.json({
+/*         res.json({
         id: user._id,
         username: user.username,
         email: user.email,
@@ -72,7 +71,7 @@ import { createAccesToken } from "../libs/jwt.js";
         nameInstitution: teacher.nameInstitution,
         address: teacher.address
         
-      });
+      }); */
   
        return res.status(201).json({ message: "Teacher created", user, teacher });
     } catch (error) {
