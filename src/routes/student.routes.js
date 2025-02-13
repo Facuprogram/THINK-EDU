@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getAllStudents, getStudentById, createStudent, editStudent, desactiveStudent } from "../controllers/student.controllers.js";
+import { getAllStudents, getStudentById, createStudent, editStudent, changeStudentState } from "../controllers/student.controllers.js";
 
 const router = Router();
 
@@ -11,7 +11,7 @@ router.get("/student/:id", getStudentById);
 
 router.put("/student/:id", editStudent);
 
-router.patch("/students/:id/deactivate", desactiveStudent);
+router.patch("/student/:id/state", changeStudentState);
 
 
 

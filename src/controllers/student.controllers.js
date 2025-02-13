@@ -70,23 +70,29 @@ export const editStudent = async (req, res) => {
     }
 };
 
-export const desactiveStudent = async (req, res) => {
+export const changeStudentState = async (req, res) => {
     try {
+        const { estado } = req.body
         const student = await Student.findById(req.params.id);
 
+        if (typeof estado !== 'boolean') {
+            return res.status(400).json({
+                message: 'Estado is needed'
+            });
+        }
         if (!student) {
             return res.status(404).json({
                 message: 'Student not found'
             });
         }
 
-        student.active = false;
+        student.active = estado;
 
         await student.save();
 
         await Assignment.updateMany(
             { student: student._id },
-            { $set: { active: false } }
+            { $set: { active: estado } }
         );
 
         res.status(200).json({
