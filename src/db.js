@@ -8,10 +8,12 @@ export const connectDB = async () => {
 
     try {
         await mongoose.connect(process.env.DATABASE_CONNECTION);
-        console.log(">>> DB is conectado");
+                console.log(">>> DB is conectado");
         await student.syncIndexes();
     }   catch (error) {
         console.log(error);
     }
 
 }; 
+//password= UeBqPc2cqxdcqST
+//user= facuprogram
